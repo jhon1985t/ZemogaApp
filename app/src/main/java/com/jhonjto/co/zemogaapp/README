@@ -9,8 +9,8 @@ Select Architecture
 
 Clean Architecture
  * Create modules for every layer of the app (app, data, domain, usecases)
-    -> App = contain the activities, fragments, viewmodels, Koin DI configuration and use, listen the usecases, data calls, domain objects
-    -> Data = contain the database, server, connections, api calls, local calls, transform the data class objects to domain, datasources and repositories
+    -> App = contain the database, server, connections, api calls, local calls, the activities, fragments, viewmodels, Koin DI configuration and use, listen the usecases, data calls, domain objects
+    -> Data = contain the data class objects to domain, datasources and repositories
     -> Domain = contain the Models of the objects in data, mappers transform from data objects to domain
     -> Uses Cases = contain the connection between the data repository and the app interaction calls into viewmodel
 
