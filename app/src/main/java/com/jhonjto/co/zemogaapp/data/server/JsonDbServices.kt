@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface JsonDbServices {
 
     @GET("/posts")
-    suspend fun getPosts(): ServerPosts
+    suspend fun getPosts(): List<ServerPostsItem>
 }

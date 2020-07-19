@@ -17,7 +17,7 @@ class RetrofitDataSource(
     override suspend fun getAllPosts(): Resource<List<DomainPostsItem>> {
         return try {
             val posts = postsDbServices.getPosts().run {
-                results.map {
+                map {
                     it.toDomainPosts()
                 }
             }

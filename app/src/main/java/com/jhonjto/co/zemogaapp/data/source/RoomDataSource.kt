@@ -1,6 +1,5 @@
 package com.jhonjto.co.zemogaapp.data.source
 
-import com.jhonjto.co.data.common.Resource
 import com.jhonjto.co.data.source.DataBaseDataSource
 import com.jhonjto.co.domain.DomainPostsItem
 import com.jhonjto.co.zemogaapp.data.database.AppDatabase
@@ -14,21 +13,29 @@ import kotlinx.coroutines.withContext
  */
 class RoomDataSource(private val appDatabase: AppDatabase) : DataBaseDataSource {
 
+    private val postsDao = appDatabase.postsDao()
+
     override suspend fun getAllPosts(): List<DomainPostsItem> = withContext(Dispatchers.IO) {
-        appDatabase.postsDao().getAll().map {
+        postsDao.getAll().map {
             it.toDomainPosts()
         }
     }
 
-    override suspend fun savePosts(domainPostsItem: List<DomainPostsItem>) {
+    override suspend fun savePosts(domainPostsItem: List<DomainPostsItem>) = withContext(Dispatchers.IO) {
         val postsList = domainPostsItem.map {
             it.toDataBaseMovie()
         }
+        postsDao.insertPosts(postsList)
+    }
 
-        appDatabase.postsDao().insertPosts(postsList)
+    override suspend fun updatePosts(domainPostsItem: List<DomainPostsItem>) = withContext(Dispatchers.IO) {
+        val postsLIst = domainPostsItem.map {
+            it.toDataBaseMovie()
+        }
+        postsDao.updatePosts(postsLIst)
     }
 
     override suspend fun isEmpty(): Boolean = withContext(Dispatchers.IO) {
-        (appDatabase.postsDao().postsCount()) <= 0
+        (postsDao.postsCount()) <= 0
     }
 }

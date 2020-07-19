@@ -14,8 +14,7 @@ import com.jhonjto.co.zemogaapp.R
 import com.jhonjto.co.zemogaapp.adapters.ViewPagerAdapter
 import com.jhonjto.co.zemogaapp.databinding.ActivityMainBinding
 import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel.UiModel
-import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel.UiModel.Content
-import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel.UiModel.Loading
+import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel.UiModel.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.scope.viewModel
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         initViews()
         loadAdapters()
+        observers()
     }
 
     private fun initViews() {
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observers() {
-
+        refreshPosts()
     }
 
     private fun updateUi(model: UiModel) {
@@ -80,8 +80,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.refresh -> Toast.makeText(this, "Refrescar", Toast.LENGTH_SHORT).show()
+            R.id.refresh -> refreshPosts()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun refreshPosts() {
+        viewModel.refresh()
     }
 }

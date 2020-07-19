@@ -9,5 +9,6 @@ interface DataBaseDataSource {
 
     suspend fun getAllPosts() : List<DomainPostsItem>
     suspend fun savePosts(domainPostsItem: List<DomainPostsItem>)
+    suspend fun updatePosts(domainPostsItem: List<DomainPostsItem>)
     suspend fun isEmpty(): Boolean
 }

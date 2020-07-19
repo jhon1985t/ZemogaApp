@@ -21,7 +21,9 @@ fun DataBasePostsItem.toDomainPosts(): DomainPostsItem {
         body,
         id,
         title,
-        userId
+        userId,
+        isReaded,
+        isFavorite
     )
 }
 
@@ -30,6 +32,8 @@ fun DomainPostsItem.toDataBaseMovie(): DataBasePostsItem {
         body,
         id,
         title,
-        userId
+        userId,
+        isReaded = false,
+        isFavorite = false
     )
 }

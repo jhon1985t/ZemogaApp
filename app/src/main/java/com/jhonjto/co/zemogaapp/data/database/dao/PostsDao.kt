@@ -10,20 +10,20 @@ import com.jhonjto.co.zemogaapp.data.database.entity.DataBasePostsItem
 interface PostsDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertPosts(posts: List<DataBasePostsItem>)
+    suspend fun insertPosts(posts: List<DataBasePostsItem>)
 
     @Update
-    fun updatePosts(dataBasePostsItem: DataBasePostsItem)
+    suspend fun updatePosts(dataBasePostsItem: List<DataBasePostsItem>)
 
     @Query("SELECT * FROM DataBasePostsItem")
-    fun getAll(): List<DataBasePostsItem>
+    suspend fun getAll(): List<DataBasePostsItem>
 
     @Query("DELETE FROM DataBasePostsItem")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("SELECT * FROM DataBasePostsItem WHERE id = :id")
-    fun findById(id: Int): DataBasePostsItem
+    suspend fun findById(id: Int): DataBasePostsItem
 
     @Query("SELECT COUNT(id) FROM DataBasePostsItem")
-    fun postsCount(): Int
+    suspend fun postsCount(): Int
 }

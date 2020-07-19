@@ -54,7 +54,11 @@ allprojects {
                 coil                  : 'io.coil-kt:coil:0.9.5',
                 legacy                : 'androidx.legacy:legacy-support-v4:1.0.0',
                 lifecycleExt          : 'androidx.lifecycle:lifecycle-extensions:2.1.0',
-                lifecycleViewModel    : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+                lifecycleViewModel    : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0',
+                stetho                : 'com.facebook.stetho:stetho:1.5.1',
+                stethoOkhttp3         : 'com.facebook.stetho:stetho-okhttp3:1.5.1',
+                stethoOkhttp          : 'com.facebook.stetho:stetho-okhttp:1.5.1',
+                stethoUrl             : 'com.facebook.stetho:stetho-urlconnection:1.5.1'
         ]
 
         testLibs = [

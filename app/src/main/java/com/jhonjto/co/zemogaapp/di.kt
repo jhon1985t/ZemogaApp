@@ -1,11 +1,14 @@
 package com.jhonjto.co.zemogaapp
 
 import android.app.Application
+import com.jhonjto.co.data.repository.DbPostsRepository
+import com.jhonjto.co.data.repository.DbPostsRepositoryImpl
 import com.jhonjto.co.data.repository.PostsRepository
 import com.jhonjto.co.data.repository.PostsRepositoryImpl
 import com.jhonjto.co.data.source.DataBaseDataSource
 import com.jhonjto.co.data.source.RemoteDataSource
 import com.jhonjto.co.usecases.GetAllPosts
+import com.jhonjto.co.usecases.GetAllPostsFromDb
 import com.jhonjto.co.zemogaapp.data.database.AppDatabase
 import com.jhonjto.co.zemogaapp.data.server.TheJsonDb
 import com.jhonjto.co.zemogaapp.data.source.RetrofitDataSource
@@ -46,6 +49,7 @@ private val appModule = module {
 
 val dataModule = module {
     factory<PostsRepository> { PostsRepositoryImpl(get(), get()) }
+    factory<DbPostsRepository> { DbPostsRepositoryImpl(get()) }
 }
 
 private val scopesModule = module {
@@ -55,7 +59,8 @@ private val scopesModule = module {
     }
 
     scope(named<LoadPosts>()) {
-        viewModel { LoadPostsViewModel() }
+        viewModel { LoadPostsViewModel(get()) }
+        scoped { GetAllPostsFromDb(get()) }
     }
 
     scope(named<ShowComment>()) {
