@@ -1,4 +1,4 @@
-package com.jhonjto.co.zemogaapp.server
+package com.jhonjto.co.zemogaapp.data.server
 
 import com.jhonjto.co.zemogaapp.BuildConfig
 import com.jhonjto.co.zemogaapp.common.Constants

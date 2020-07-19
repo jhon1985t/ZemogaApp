@@ -1,4 +1,4 @@
-package com.jhonjto.co.zemogaapp
+package com.jhonjto.co.zemogaapp.ui.posts
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jhonjto.co.zemogaapp.R
 
 class LoadPosts : Fragment() {
 

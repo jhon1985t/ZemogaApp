@@ -1,4 +1,4 @@
-package com.jhonjto.co.zemogaapp
+package com.jhonjto.co.zemogaapp.ui.posts
 
 import androidx.lifecycle.ViewModel
 

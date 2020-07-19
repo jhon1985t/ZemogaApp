@@ -1,11 +1,11 @@
-package com.jhonjto.co.zemogaapp.data.database
+package com.jhonjto.co.zemogaapp.data.server
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PostsItem(
+data class ServerPostsItem(
     @SerializedName("body")
     val body: String,
     @SerializedName("id")

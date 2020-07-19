@@ -27,17 +27,14 @@ allprojects {
                 recyclerview        : 'androidx.recyclerview:recyclerview:1.1.0',
                 constraintlayout    : 'androidx.constraintlayout:constraintlayout:1.1.3',
                 androidxCore        : 'androidx.core:core-ktx:1.2.0',
-                lifecycleViewModel  : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0',
                 playServicesLocation: 'com.google.android.gms:play-services-location:17.0.0',
                 material            : 'com.google.android.material:material:1.1.0',
-                roomRuntime         : 'androidx.room:room-runtime:2.2.4',
-                glide               : 'com.github.bumptech.glide:glide:4.11.0',
-                dexter              : 'com.karumi:dexter:6.0.2'
+                roomRuntime         : 'androidx.room:room-runtime:2.2.5',
+                roomKtx             : "androidx.room:room-ktx:2.2.5"
         ]
 
         androidKaptLibs = [
-                roomCompiler : 'androidx.room:room-compiler:2.2.4',
-                glideCompiler: 'com.github.bumptech.glide:compiler:4.11.0'
+                roomCompiler: 'androidx.room:room-compiler:2.2.5'
         ]
 
         kotlinLibs = [
@@ -46,14 +43,23 @@ allprojects {
         ]
 
         libs = [
-                okhttpLoginInterceptor   : 'com.squareup.okhttp3:logging-interceptor:4.2.1',
-                retrofit                 : 'com.squareup.retrofit2:retrofit:2.7.2',
-                retrofitGsonConverter    : 'com.squareup.retrofit2:converter-gson:2.7.2',
-                koin                     : "org.koin:koin-androidx-viewmodel:2.1.1"
+                okhttpLoginInterceptor: 'com.squareup.okhttp3:logging-interceptor:4.4.0',
+                okhttp                : 'com.squareup.okhttp3:okhttp:4.4.0',
+                retrofit              : 'com.squareup.retrofit2:retrofit:2.8.1',
+                retrofitGsonConverter : 'com.squareup.retrofit2:converter-gson:2.8.1',
+                koin                  : "org.koin:koin-android:2.1.5",
+                koinScope             : "org.koin:koin-android-scope:2.1.5",
+                koinViewModel         : "org.koin:koin-android-viewmodel:2.1.5",
+                timber                : 'com.jakewharton.timber:timber:4.7.1',
+                coil                  : 'io.coil-kt:coil:0.9.5',
+                legacy                : 'androidx.legacy:legacy-support-v4:1.0.0',
+                lifecycleExt          : 'androidx.lifecycle:lifecycle-extensions:2.1.0',
+                lifecycleViewModel    : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
         ]
 
         testLibs = [
                 junit        : 'junit:junit:4.12',
+                junitExt     : 'androidx.test.ext:junit:1.1.1',
                 mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0",
                 mockitoInline: "org.mockito:mockito-inline:2.28.2",
                 koinTest     : 'org.koin:koin-test:2.1.1',
@@ -66,11 +72,14 @@ allprojects {
         androidTestLibs = [
                 testRunner   : 'androidx.test:runner:1.2.0',
                 espresso     : 'androidx.test.espresso:espresso-contrib:3.2.0',
+                espressoCore : 'androidx.test.espresso:espresso-core:3.1.0',
                 rules        : 'androidx.test:rules:1.2.0',
                 extJunit     : 'androidx.test.ext:junit-ktx:1.1.1',
                 koinTest     : 'org.koin:koin-test:2.1.1',
                 mockWebServer: 'com.squareup.okhttp3:mockwebserver:4.2.1',
-                okhttpIdling : 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
+                okhttpIdling : 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0',
+                fragmentImpl : 'androidx.fragment:fragment-testing:1.2.4',
+                fragmentKtx  : 'androidx.fragment:fragment-ktx:1.1.0'
         ]
     }
 }

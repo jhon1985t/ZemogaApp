@@ -1,4 +1,4 @@
-package com.jhonjto.co.zemogaapp
+package com.jhonjto.co.zemogaapp.ui.comments
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,14 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jhonjto.co.zemogaapp.R
 
-class ShowContent : Fragment() {
+class ShowComment : Fragment() {
 
     companion object {
-        fun newInstance() = ShowContent()
+        fun newInstance() = ShowComment()
     }
 
-    private lateinit var viewModel: ShowContentViewModel
+    private lateinit var viewModel: ShowCommentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +25,7 @@ class ShowContent : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ShowContentViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ShowCommentViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
