@@ -3,10 +3,12 @@ package com.jhonjto.co.zemogaapp.data.source
 import com.jhonjto.co.data.common.Resource
 import com.jhonjto.co.data.source.RemoteDataSource
 import com.jhonjto.co.domain.DomainPostsItem
+import com.jhonjto.co.domain.DomainUserComments
 import com.jhonjto.co.domain.DomainUserDetails
 import com.jhonjto.co.zemogaapp.data.ResponseHandler
 import com.jhonjto.co.zemogaapp.data.server.JsonDbServices
 import com.jhonjto.co.zemogaapp.data.toDomainPosts
+import com.jhonjto.co.zemogaapp.data.toDomainUserComments
 import com.jhonjto.co.zemogaapp.data.toDomainUserDetails
 
 /**
@@ -35,6 +37,17 @@ class RetrofitDataSource(
                 this.toDomainUserDetails()
             }
             ResponseHandler().handleSuccess(userDetails)
+        } catch (e: Exception) {
+            ResponseHandler().handleException(e)
+        }
+    }
+
+    override suspend fun getUserComments(id: Int): Resource<DomainUserComments> {
+        return try {
+            val userComments = postsDbServices.getUserComments(id).run {
+                this.toDomainUserComments()
+            }
+            ResponseHandler().handleSuccess(userComments)
         } catch (e: Exception) {
             ResponseHandler().handleException(e)
         }

@@ -3,12 +3,13 @@ package com.jhonjto.co.zemogaapp.data
 import com.jhonjto.co.domain.*
 import com.jhonjto.co.zemogaapp.data.database.entity.*
 import com.jhonjto.co.zemogaapp.data.server.ServerPostsItem
+import com.jhonjto.co.zemogaapp.data.server.ServerUserComments
 import com.jhonjto.co.zemogaapp.data.server.ServerUserDetail
 
 /**
  * Created by jhon on 18/07/2020
  */
-fun ServerPostsItem.toDomainPosts(): DomainPostsItem {
+fun ServerPostsItem.toDomainPosts() : DomainPostsItem {
     return DomainPostsItem(
         body,
         id,
@@ -17,8 +18,7 @@ fun ServerPostsItem.toDomainPosts(): DomainPostsItem {
     )
 }
 
-fun ServerUserDetail.toDomainUserDetails(): DomainUserDetails {
-
+fun ServerUserDetail.toDomainUserDetails() : DomainUserDetails {
     return DomainUserDetails(
         email,
         id,
@@ -29,7 +29,17 @@ fun ServerUserDetail.toDomainUserDetails(): DomainUserDetails {
     )
 }
 
-fun DataBasePostsItem.toDomainPosts(): DomainPostsItem {
+fun ServerUserComments.toDomainUserComments() : DomainUserComments {
+    return DomainUserComments(
+        body,
+        email,
+        id,
+        name,
+        postId
+    )
+}
+
+fun DataBasePostsItem.toDomainPosts() : DomainPostsItem {
     return DomainPostsItem(
         body,
         id,
@@ -40,18 +50,7 @@ fun DataBasePostsItem.toDomainPosts(): DomainPostsItem {
     )
 }
 
-fun DataBaseUserDetails.toDomainUserDetails(): DomainUserDetails {
-    return DomainUserDetails(
-        email,
-        id,
-        name,
-        phone,
-        username,
-        website
-    )
-}
-
-fun DomainPostsItem.toDataBaseMovie(): DataBasePostsItem {
+fun DomainPostsItem.toDataBaseMovie() : DataBasePostsItem {
     return DataBasePostsItem(
         body,
         id,
@@ -59,16 +58,5 @@ fun DomainPostsItem.toDataBaseMovie(): DataBasePostsItem {
         userId,
         isReaded = false,
         isFavorite = false
-    )
-}
-
-fun DomainUserDetails.toDataBaseUserDetails() : DataBaseUserDetails {
-    return DataBaseUserDetails(
-        email,
-        id,
-        name,
-        phone,
-        username,
-        website
     )
 }

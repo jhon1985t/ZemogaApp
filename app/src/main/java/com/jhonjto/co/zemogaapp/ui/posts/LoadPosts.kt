@@ -45,8 +45,8 @@ class LoadPosts : Fragment() {
         binding.postsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.postsRecyclerView.adapter = adapter
 
-        viewModel.model.observe(this, Observer(::updateUi))
-        viewModel.navigation.observe(this, Observer {
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
+        viewModel.navigation.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { post ->
                 listener?.navigateTo(post.id)
             }

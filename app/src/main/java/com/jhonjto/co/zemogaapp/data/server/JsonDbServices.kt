@@ -15,4 +15,9 @@ interface JsonDbServices {
     suspend fun getUserDetail(
         @Path("id") id: Int
     ) : ServerUserDetail
+
+    @GET("/comments/{id}")
+    suspend fun getUserComments(
+        @Path("id") id: Int
+    ) : ServerUserComments
 }

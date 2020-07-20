@@ -3,16 +3,23 @@ package com.jhonjto.co.zemogaapp.ui.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.jhonjto.co.domain.DomainPostsItem
 import com.jhonjto.co.zemogaapp.R
+import com.jhonjto.co.zemogaapp.adapters.CommentsAdapter
 import com.jhonjto.co.zemogaapp.ui.detail.DetailViewModel.UiModel
-import com.jhonjto.co.zemogaapp.ui.detail.DetailViewModel.UiModel.Content
-import com.jhonjto.co.zemogaapp.ui.detail.DetailViewModel.UiModel.User
+import com.jhonjto.co.zemogaapp.ui.detail.DetailViewModel.UiModel.*
 import kotlinx.android.synthetic.main.content_detail.*
+import kotlinx.android.synthetic.main.content_detail.view.*
+import kotlinx.coroutines.*
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.scope.viewModel
 import org.koin.core.parameter.parametersOf
+import kotlin.coroutines.CoroutineContext
 
 class DetailActivity : AppCompatActivity() {
+
+    private lateinit var adapter: CommentsAdapter
 
     companion object {
         const val POST = "DetailActivity:post"
@@ -27,15 +34,21 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        adapter = CommentsAdapter()
+        rvComments.layoutManager = LinearLayoutManager(this)
+        rvComments.adapter = adapter
         viewModel.model.observe(this, Observer(::updateUi))
     }
 
     private fun updateUi(model: UiModel) {
         when (model) {
-            is Content -> with(model.post) {
-                tvDescriptionContext.text = body
-                viewModel.loadUserDetails(model.post.id)
-            }
+            is Content ->
+                with(model.post) {
+                    tvDescriptionContext.text = body
+                    viewModel.loadUserDetails(model.post.id)
+                    viewModel.loadUserComments(model.post.id)
+                }
+
             is User -> with(model.userDetails) {
                 this.data.let {
                     tvUserNameFill.text = it?.name
@@ -44,6 +57,7 @@ class DetailActivity : AppCompatActivity() {
                     tvUserWebsiteFill.text = it?.website
                 }
             }
+            is Comments -> adapter.comments = listOf(model.userComments.data!!)
         }
     }
 }

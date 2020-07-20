@@ -3,11 +3,10 @@ package com.jhonjto.co.domain
 /**
  * Created by jhon on 18/07/2020
  */
-data class DomainUserDetails(
+data class DomainUserComments(
+    val body: String,
     val email: String,
     val id: Int,
     val name: String,
-    val phone: String,
-    val username: String,
-    val website: String
+    val postId: Int
 )

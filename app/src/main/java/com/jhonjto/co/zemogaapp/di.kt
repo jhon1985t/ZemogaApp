@@ -65,12 +65,14 @@ private val scopesModule = module {
                 postId = postId,
                 updatePostFavoriteFromDb = get(),
                 getPostFindByIdFromDb = get(),
-                getUserDetails = get()
+                getUserDetails = get(),
+                getUserComments = get()
             )
         }
         scoped { UpdatePostFavoriteFromDb(get()) }
         scoped { GetPostFindByIdFromDb(get()) }
         scoped { GetUserDetails(get()) }
+        scoped { GetUserComments(get()) }
     }
 
     scope(named<LoadPosts>()) {
