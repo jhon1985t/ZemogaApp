@@ -1,6 +1,8 @@
 package com.jhonjto.co.zemogaapp.ui.detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,5 +61,21 @@ class DetailActivity : AppCompatActivity() {
             }
             is Comments -> adapter.comments = listOf(model.userComments.data!!)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.favorites_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favorite -> addToFavorites()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun addToFavorites() {
+        viewModel.onFavoriteClicked(true)
     }
 }
