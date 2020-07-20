@@ -29,4 +29,13 @@ interface PostsDao {
 
     @Query("SELECT * FROM DataBasePostsItem WHERE id = :id")
     suspend fun getIsReaded(id: Int) : List<DataBasePostsItem>
+
+    @Query("SELECT * FROM DataBasePostsItem WHERE id = :id")
+    suspend fun findById(id: Int) : DataBasePostsItem
+
+    @Query("UPDATE DataBasePostsItem SET isFavorite = :isFavorite WHERE id = :id")
+    suspend fun updateIsFavorite(id: Int, isFavorite: Boolean) : Int
+
+    @Query("SELECT * FROM DataBasePostsItem WHERE id = :id")
+    suspend fun getIsFavorite(id: Int) : List<DataBasePostsItem>
 }

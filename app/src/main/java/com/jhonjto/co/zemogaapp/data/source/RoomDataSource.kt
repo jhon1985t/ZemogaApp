@@ -45,6 +45,20 @@ class RoomDataSource(appDatabase: AppDatabase) : DataBaseDataSource {
         }
     }
 
+    override suspend fun findById(id: Int): DomainPostsItem = withContext(Dispatchers.IO) {
+        postsDao.findById(id).toDomainPosts()
+    }
+
+    override suspend fun updatePostFavorite(id: Int, isFavorite: Boolean): Int = withContext(Dispatchers.IO) {
+        postsDao.updateIsFavorite(id, isFavorite)
+    }
+
+    override suspend fun getPostFavorite(id: Int): List<DomainPostsItem> = withContext(Dispatchers.IO) {
+        postsDao.getIsFavorite(id).map {
+            it.toDomainPosts()
+        }
+    }
+
     override suspend fun isEmpty() : Boolean = withContext(Dispatchers.IO) {
         (postsDao.postsCount()) <= 0
     }

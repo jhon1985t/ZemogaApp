@@ -22,11 +22,23 @@ class DbPostsRepositoryImpl(
         return dataBaseDataSource.getAllPosts()
     }
 
-    override suspend fun upDatePostRepository(id: Int, isReaded: Boolean) : Int {
+    override suspend fun upDatePostReadedRepository(id: Int, isReaded: Boolean) : Int {
         return dataBaseDataSource.updatePostReaded(id, isReaded)
     }
 
     override suspend fun getIsReaded(id: Int): List<DomainPostsItem> {
         return dataBaseDataSource.getIsReaded(id)
+    }
+
+    override suspend fun upDatePostFavoriteRepository(id: Int, isFavorite: Boolean): Int {
+        return dataBaseDataSource.updatePostFavorite(id, isFavorite)
+    }
+
+    override suspend fun getIsFavorite(id: Int): List<DomainPostsItem> {
+        return dataBaseDataSource.getPostFavorite(id)
+    }
+
+    override suspend fun findById(id: Int): DomainPostsItem {
+        return dataBaseDataSource.findById(id)
     }
 }

@@ -12,8 +12,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.jhonjto.co.zemogaapp.R
 import com.jhonjto.co.zemogaapp.adapters.ViewPagerAdapter
 import com.jhonjto.co.zemogaapp.databinding.ActivityMainBinding
-import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel.UiModel
-import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel.UiModel.*
+import com.jhonjto.co.zemogaapp.ui.main.MainViewModel.UiModel
+import com.jhonjto.co.zemogaapp.ui.main.MainViewModel.UiModel.Loading
+import com.jhonjto.co.zemogaapp.ui.main.MainViewModel.UiModel.RefreshPosts
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.scope.viewModel
@@ -24,7 +25,7 @@ import org.koin.android.viewmodel.scope.viewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainActivityViewModel by lifecycleScope.viewModel(this)
+    private val viewModel: MainViewModel by lifecycleScope.viewModel(this)
 
     private var viewPager: ViewPager2? = null
     private var tabLayout: TabLayout? = null

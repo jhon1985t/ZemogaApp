@@ -7,18 +7,17 @@ import com.jhonjto.co.data.repository.PostsRepository
 import com.jhonjto.co.data.repository.PostsRepositoryImpl
 import com.jhonjto.co.data.source.DataBaseDataSource
 import com.jhonjto.co.data.source.RemoteDataSource
-import com.jhonjto.co.usecases.GetAllPosts
-import com.jhonjto.co.usecases.GetAllPostsFromDb
-import com.jhonjto.co.usecases.GetPostIsReadedFromDb
-import com.jhonjto.co.usecases.UpDatePostFromDb
+import com.jhonjto.co.usecases.*
 import com.jhonjto.co.zemogaapp.data.database.AppDatabase
 import com.jhonjto.co.zemogaapp.data.server.TheJsonDb
 import com.jhonjto.co.zemogaapp.data.source.RetrofitDataSource
 import com.jhonjto.co.zemogaapp.data.source.RoomDataSource
 import com.jhonjto.co.zemogaapp.ui.comments.ShowFavorites
 import com.jhonjto.co.zemogaapp.ui.comments.ShowFavoritesViewModel
+import com.jhonjto.co.zemogaapp.ui.detail.DetailActivity
+import com.jhonjto.co.zemogaapp.ui.detail.DetailViewModel
 import com.jhonjto.co.zemogaapp.ui.main.MainActivity
-import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel
+import com.jhonjto.co.zemogaapp.ui.main.MainViewModel
 import com.jhonjto.co.zemogaapp.ui.posts.LoadPosts
 import com.jhonjto.co.zemogaapp.ui.posts.LoadPostsViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -56,12 +55,26 @@ val dataModule = module {
 
 private val scopesModule = module {
     scope(named<MainActivity>()) {
-        viewModel { MainActivityViewModel(get()) }
+        viewModel { MainViewModel(get()) }
         scoped { GetAllPosts(get()) }
     }
 
+    scope(named<DetailActivity>()) {
+        viewModel { (postId: Int) ->
+            DetailViewModel(
+                postId = postId,
+                updatePostFavoriteFromDb = get(),
+                getPostFindByIdFromDb = get(),
+                getUserDetails = get()
+            )
+        }
+        scoped { UpdatePostFavoriteFromDb(get()) }
+        scoped { GetPostFindByIdFromDb(get()) }
+        scoped { GetUserDetails(get()) }
+    }
+
     scope(named<LoadPosts>()) {
-        viewModel { LoadPostsViewModel(get(), get(), get()) }
+        viewModel { LoadPostsViewModel(get(), get()) }
         scoped { GetAllPostsFromDb(get()) }
         scoped { UpDatePostFromDb(get()) }
         scoped { GetPostIsReadedFromDb(get()) }

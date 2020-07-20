@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by jhon on 18/07/2020
  */
-class MainActivityViewModel(
+class MainViewModel(
     private val getAllPosts: GetAllPosts
 ) : ScopeViewModel() {
 
@@ -25,7 +25,6 @@ class MainActivityViewModel(
 
     sealed class UiModel {
         object Loading : UiModel()
-        data class Navigation(val posts: DomainPostsItem) : UiModel()
         data class RefreshPosts(val posts: List<DomainPostsItem>) : UiModel()
     }
 
@@ -38,10 +37,6 @@ class MainActivityViewModel(
             _model.value = UiModel.Loading
             _model.value = UiModel.RefreshPosts(getAllPosts.invoke())
         }
-    }
-
-    fun onPostsClicked(postsItem: DomainPostsItem) {
-        _model.value = UiModel.Navigation(postsItem)
     }
 
     override fun onCleared() {

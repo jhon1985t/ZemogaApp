@@ -1,8 +1,9 @@
 package com.jhonjto.co.zemogaapp.data
 
-import com.jhonjto.co.domain.DomainPostsItem
-import com.jhonjto.co.zemogaapp.data.database.entity.DataBasePostsItem
+import com.jhonjto.co.domain.*
+import com.jhonjto.co.zemogaapp.data.database.entity.*
 import com.jhonjto.co.zemogaapp.data.server.ServerPostsItem
+import com.jhonjto.co.zemogaapp.data.server.ServerUserDetail
 
 /**
  * Created by jhon on 18/07/2020
@@ -13,6 +14,18 @@ fun ServerPostsItem.toDomainPosts(): DomainPostsItem {
         id,
         title,
         userId
+    )
+}
+
+fun ServerUserDetail.toDomainUserDetails(): DomainUserDetails {
+
+    return DomainUserDetails(
+        email,
+        id,
+        name,
+        phone,
+        username,
+        website
     )
 }
 
@@ -27,6 +40,17 @@ fun DataBasePostsItem.toDomainPosts(): DomainPostsItem {
     )
 }
 
+fun DataBaseUserDetails.toDomainUserDetails(): DomainUserDetails {
+    return DomainUserDetails(
+        email,
+        id,
+        name,
+        phone,
+        username,
+        website
+    )
+}
+
 fun DomainPostsItem.toDataBaseMovie(): DataBasePostsItem {
     return DataBasePostsItem(
         body,
@@ -35,5 +59,16 @@ fun DomainPostsItem.toDataBaseMovie(): DataBasePostsItem {
         userId,
         isReaded = false,
         isFavorite = false
+    )
+}
+
+fun DomainUserDetails.toDataBaseUserDetails() : DataBaseUserDetails {
+    return DataBaseUserDetails(
+        email,
+        id,
+        name,
+        phone,
+        username,
+        website
     )
 }

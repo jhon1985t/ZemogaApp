@@ -2,18 +2,21 @@ package com.jhonjto.co.zemogaapp.adapters
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.jhonjto.co.domain.DomainPostsItem
 import com.jhonjto.co.zemogaapp.R
+import com.jhonjto.co.zemogaapp.ui.detail.DetailActivity
 import com.jhonjto.co.zemogaapp.util.basicDiffUtil
 import com.jhonjto.co.zemogaapp.util.inflate
+import com.jhonjto.co.zemogaapp.util.startActivity
 import kotlinx.android.synthetic.main.posts_detail.view.*
 
 /**
  * Created by jhon on 19/07/2020
  */
-class PostsAdapter(private val listener: (id: Int, isReaded: Boolean) -> Unit) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter(
+    private val listener: (id: Int, isReaded: Boolean) -> Unit
+) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
     var posts : List<DomainPostsItem> by basicDiffUtil(
         emptyList(), { old, new -> old.body == new.body }
@@ -27,7 +30,12 @@ class PostsAdapter(private val listener: (id: Int, isReaded: Boolean) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val posts = posts[position]
         holder.bind(posts)
-        holder.itemView.llPostsContent.setOnClickListener { listener(posts.id, true) }
+        holder.itemView.llPostsContent.setOnClickListener {
+            listener(posts.id, true)
+            holder.itemView.context?.startActivity<DetailActivity> {
+                putExtra(DetailActivity.POST, posts.id)
+            }
+        }
     }
 
     override fun getItemCount(): Int = posts.size

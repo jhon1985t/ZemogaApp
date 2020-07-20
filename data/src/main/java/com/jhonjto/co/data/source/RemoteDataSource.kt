@@ -2,6 +2,7 @@ package com.jhonjto.co.data.source
 
 import com.jhonjto.co.data.common.Resource
 import com.jhonjto.co.domain.DomainPostsItem
+import com.jhonjto.co.domain.DomainUserDetails
 
 /**
  * Created by jhon on 18/07/2020
@@ -9,4 +10,5 @@ import com.jhonjto.co.domain.DomainPostsItem
 interface RemoteDataSource {
 
     suspend fun getAllPosts(): Resource<List<DomainPostsItem>>
+    suspend fun getUserDetails(id: Int): Resource<DomainUserDetails>
 }

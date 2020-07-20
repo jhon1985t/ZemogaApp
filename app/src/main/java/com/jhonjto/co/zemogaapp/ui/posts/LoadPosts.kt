@@ -21,11 +21,11 @@ import org.koin.android.viewmodel.scope.viewModel
  */
 class LoadPosts : Fragment() {
 
-    private lateinit var binding : LoadPostsFragmentBinding
-    private lateinit var adapter : PostsAdapter
-    private val viewModel : LoadPostsViewModel by lifecycleScope.viewModel(this)
+    private lateinit var binding: LoadPostsFragmentBinding
+    private lateinit var adapter: PostsAdapter
+    private val viewModel: LoadPostsViewModel by lifecycleScope.viewModel(this)
 
-    private var listener : Listener? = null
+    private var listener: Listener? = null
 
     interface Listener {
         fun navigateTo(id: Int)
@@ -46,6 +46,11 @@ class LoadPosts : Fragment() {
         binding.postsRecyclerView.adapter = adapter
 
         viewModel.model.observe(this, Observer(::updateUi))
+        viewModel.navigation.observe(this, Observer {
+            it.getContentIfNotHandled()?.let { post ->
+                listener?.navigateTo(post.id)
+            }
+        })
     }
 
     private fun updateUi(model: UiModel) {
