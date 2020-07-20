@@ -11,11 +11,11 @@ import kotlinx.coroutines.withContext
 /**
  * Created by jhon on 18/07/2020
  */
-class RoomDataSource(private val appDatabase: AppDatabase) : DataBaseDataSource {
+class RoomDataSource(appDatabase: AppDatabase) : DataBaseDataSource {
 
     private val postsDao = appDatabase.postsDao()
 
-    override suspend fun getAllPosts(): List<DomainPostsItem> = withContext(Dispatchers.IO) {
+    override suspend fun getAllPosts() : List<DomainPostsItem> = withContext(Dispatchers.IO) {
         postsDao.getAll().map {
             it.toDomainPosts()
         }
@@ -35,7 +35,17 @@ class RoomDataSource(private val appDatabase: AppDatabase) : DataBaseDataSource 
         postsDao.updatePosts(postsLIst)
     }
 
-    override suspend fun isEmpty(): Boolean = withContext(Dispatchers.IO) {
+    override suspend fun updatePostReaded(id: Int, isReaded: Boolean) : Int = withContext(Dispatchers.IO) {
+        postsDao.updateIsReaded(id, isReaded)
+    }
+
+    override suspend fun getIsReaded(id: Int) : List<DomainPostsItem> = withContext(Dispatchers.IO) {
+        postsDao.getIsReaded(id).map {
+            it.toDomainPosts()
+        }
+    }
+
+    override suspend fun isEmpty() : Boolean = withContext(Dispatchers.IO) {
         (postsDao.postsCount()) <= 0
     }
 }

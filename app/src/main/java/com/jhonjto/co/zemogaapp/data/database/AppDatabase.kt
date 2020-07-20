@@ -8,7 +8,6 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.jhonjto.co.zemogaapp.data.database.dao.PostsDao
 import com.jhonjto.co.zemogaapp.data.database.entity.DataBasePostsItem
-import com.jhonjto.co.zemogaapp.data.server.ServerPostsItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

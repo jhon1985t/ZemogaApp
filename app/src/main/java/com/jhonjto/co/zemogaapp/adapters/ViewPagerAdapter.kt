@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.jhonjto.co.zemogaapp.ui.posts.LoadPosts
-import com.jhonjto.co.zemogaapp.ui.comments.ShowComment
+import com.jhonjto.co.zemogaapp.ui.comments.ShowFavorites
 
 /**
  * Created by jhon on 18/07/2020
@@ -18,7 +18,7 @@ class ViewPagerAdapter internal constructor(fm : FragmentManager?, lifecycle: Li
         var fragment: Fragment? = null
         when(position) {
             0 -> fragment = LoadPosts()
-            1 -> fragment = ShowComment()
+            1 -> fragment = ShowFavorites()
         }
         return fragment!!
     }

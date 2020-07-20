@@ -2,7 +2,6 @@ package com.jhonjto.co.zemogaapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.jhonjto.co.data.common.Resource
 import com.jhonjto.co.domain.DomainPostsItem
 import com.jhonjto.co.usecases.GetAllPosts
 import com.jhonjto.co.zemogaapp.common.ScopeViewModel
@@ -19,16 +18,15 @@ class MainActivityViewModel(
     val model: LiveData<UiModel>
     get() {
         if (_model.value == null) {
-            loadData()
+            refresh()
         }
         return _model
     }
 
     sealed class UiModel {
         object Loading : UiModel()
-        data class Content(val posts: Resource<List<DomainPostsItem>>) : UiModel()
         data class Navigation(val posts: DomainPostsItem) : UiModel()
-        data class RefreshPosts(val posts: Resource<List<DomainPostsItem>>) : UiModel()
+        data class RefreshPosts(val posts: List<DomainPostsItem>) : UiModel()
     }
 
     init {
@@ -37,14 +35,8 @@ class MainActivityViewModel(
 
     fun refresh() {
         launch {
-            _model.value = UiModel.RefreshPosts(getAllPosts.invoke())
-        }
-    }
-
-    private fun loadData() {
-        launch {
             _model.value = UiModel.Loading
-            _model.value = UiModel.Content(getAllPosts.invoke())
+            _model.value = UiModel.RefreshPosts(getAllPosts.invoke())
         }
     }
 

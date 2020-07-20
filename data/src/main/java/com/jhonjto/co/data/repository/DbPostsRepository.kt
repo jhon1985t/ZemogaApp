@@ -7,4 +7,6 @@ import com.jhonjto.co.domain.DomainPostsItem
  */
 interface DbPostsRepository {
     suspend fun getAllPosts(): List<DomainPostsItem>
+    suspend fun upDatePostRepository(id: Int, isReaded: Boolean) : Int
+    suspend fun getIsReaded(id: Int) : List<DomainPostsItem>
 }

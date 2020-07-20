@@ -2,6 +2,7 @@ package com.jhonjto.co.zemogaapp.adapters
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.jhonjto.co.domain.DomainPostsItem
 import com.jhonjto.co.zemogaapp.R
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.posts_detail.view.*
 /**
  * Created by jhon on 19/07/2020
  */
-class PostsAdapter : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter(private val listener: (id: Int, isReaded: Boolean) -> Unit) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
     var posts : List<DomainPostsItem> by basicDiffUtil(
         emptyList(), { old, new -> old.body == new.body }
@@ -20,14 +21,13 @@ class PostsAdapter : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = parent.inflate(R.layout.posts_detail, false)
-        return ViewHolder(
-            view
-        )
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val posts = posts[position]
         holder.bind(posts)
+        holder.itemView.llPostsContent.setOnClickListener { listener(posts.id, true) }
     }
 
     override fun getItemCount(): Int = posts.size
@@ -38,6 +38,9 @@ class PostsAdapter : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
                 true -> {
                     imPostsDot.visibility = View.VISIBLE
                     tvPostsBody.text = domainPostsItem.body
+                    if (domainPostsItem.isReaded) {
+                        imPostsDot.visibility = View.INVISIBLE
+                    }
                 }
                 false -> {
                     imPostsDot.visibility = View.INVISIBLE

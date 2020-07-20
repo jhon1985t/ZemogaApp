@@ -1,6 +1,5 @@
 package com.jhonjto.co.data.repository
 
-import com.jhonjto.co.data.common.Resource
 import com.jhonjto.co.data.source.DataBaseDataSource
 import com.jhonjto.co.data.source.RemoteDataSource
 import com.jhonjto.co.domain.DomainPostsItem
@@ -13,13 +12,13 @@ class PostsRepositoryImpl(
     private val remoteDataSource: RemoteDataSource
 ) : PostsRepository {
 
-    override suspend fun getAllPosts(): Resource<List<DomainPostsItem>> {
+    override suspend fun getAllPosts(): List<DomainPostsItem> {
         if (dataBaseDataSource.isEmpty()) {
             val posts = remoteDataSource.getAllPosts()
             posts.data?.let {
                 dataBaseDataSource.savePosts(it)
             }
         }
-        return remoteDataSource.getAllPosts()
+        return dataBaseDataSource.getAllPosts()
     }
 }

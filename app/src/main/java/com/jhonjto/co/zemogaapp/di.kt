@@ -9,12 +9,14 @@ import com.jhonjto.co.data.source.DataBaseDataSource
 import com.jhonjto.co.data.source.RemoteDataSource
 import com.jhonjto.co.usecases.GetAllPosts
 import com.jhonjto.co.usecases.GetAllPostsFromDb
+import com.jhonjto.co.usecases.GetPostIsReadedFromDb
+import com.jhonjto.co.usecases.UpDatePostFromDb
 import com.jhonjto.co.zemogaapp.data.database.AppDatabase
 import com.jhonjto.co.zemogaapp.data.server.TheJsonDb
 import com.jhonjto.co.zemogaapp.data.source.RetrofitDataSource
 import com.jhonjto.co.zemogaapp.data.source.RoomDataSource
-import com.jhonjto.co.zemogaapp.ui.comments.ShowComment
-import com.jhonjto.co.zemogaapp.ui.comments.ShowCommentViewModel
+import com.jhonjto.co.zemogaapp.ui.comments.ShowFavorites
+import com.jhonjto.co.zemogaapp.ui.comments.ShowFavoritesViewModel
 import com.jhonjto.co.zemogaapp.ui.main.MainActivity
 import com.jhonjto.co.zemogaapp.ui.main.MainActivityViewModel
 import com.jhonjto.co.zemogaapp.ui.posts.LoadPosts
@@ -49,7 +51,7 @@ private val appModule = module {
 
 val dataModule = module {
     factory<PostsRepository> { PostsRepositoryImpl(get(), get()) }
-    factory<DbPostsRepository> { DbPostsRepositoryImpl(get()) }
+    factory<DbPostsRepository> { DbPostsRepositoryImpl(get(), get()) }
 }
 
 private val scopesModule = module {
@@ -59,11 +61,13 @@ private val scopesModule = module {
     }
 
     scope(named<LoadPosts>()) {
-        viewModel { LoadPostsViewModel(get()) }
+        viewModel { LoadPostsViewModel(get(), get(), get()) }
         scoped { GetAllPostsFromDb(get()) }
+        scoped { UpDatePostFromDb(get()) }
+        scoped { GetPostIsReadedFromDb(get()) }
     }
 
-    scope(named<ShowComment>()) {
-        viewModel { ShowCommentViewModel() }
+    scope(named<ShowFavorites>()) {
+        viewModel { ShowFavoritesViewModel() }
     }
 }
