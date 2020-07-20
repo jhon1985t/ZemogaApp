@@ -42,6 +42,7 @@ class PostsAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(domainPostsItem: DomainPostsItem) = with(itemView) {
+            if (domainPostsItem.isFavorite) imPostsFav.visibility = View.VISIBLE
             when (domainPostsItem.id <= 20) {
                 true -> {
                     imPostsDot.visibility = View.VISIBLE
@@ -56,5 +57,10 @@ class PostsAdapter(
                 }
             }
         }
+    }
+
+    fun remoteAt(position: Int) {
+        posts.drop(position)
+        notifyItemRemoved(position)
     }
 }

@@ -36,6 +36,8 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         adapter = CommentsAdapter()
         rvComments.layoutManager = LinearLayoutManager(this)
         rvComments.adapter = adapter

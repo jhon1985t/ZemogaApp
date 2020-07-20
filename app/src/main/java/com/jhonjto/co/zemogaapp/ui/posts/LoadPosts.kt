@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jhonjto.co.zemogaapp.adapters.PostsAdapter
 import com.jhonjto.co.zemogaapp.databinding.LoadPostsFragmentBinding
 import com.jhonjto.co.zemogaapp.ui.posts.LoadPostsViewModel.UiModel
 import com.jhonjto.co.zemogaapp.ui.posts.LoadPostsViewModel.UiModel.*
+import com.jhonjto.co.zemogaapp.util.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.scope.viewModel
@@ -44,6 +47,15 @@ class LoadPosts : Fragment() {
         adapter = PostsAdapter(viewModel::updatePostReaded)
         binding.postsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.postsRecyclerView.adapter = adapter
+
+        val swipeHandler = object : SwipeToDeleteCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = binding.postsRecyclerView.adapter as PostsAdapter
+                adapter.remoteAt(viewHolder.adapterPosition)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(binding.postsRecyclerView)
 
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
         viewModel.navigation.observe(viewLifecycleOwner, Observer {

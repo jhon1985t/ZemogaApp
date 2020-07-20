@@ -87,5 +87,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun refreshPosts() {
         viewModel.refresh()
+        loadAdapters()
+    }
+
+    override fun onRestart() {
+        loadAdapters()
+        super.onRestart()
     }
 }
