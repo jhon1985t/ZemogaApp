@@ -21,6 +21,10 @@ class RoomDataSource(appDatabase: AppDatabase) : DataBaseDataSource {
         }
     }
 
+    override suspend fun deleteAllPosts() = withContext(Dispatchers.IO) {
+        postsDao.deleteAll()
+    }
+
     override suspend fun savePosts(domainPostsItem: List<DomainPostsItem>) = withContext(Dispatchers.IO) {
         val postsList = domainPostsItem.map {
             it.toDataBaseMovie()
@@ -55,6 +59,12 @@ class RoomDataSource(appDatabase: AppDatabase) : DataBaseDataSource {
 
     override suspend fun getPostFavorite(id: Int): List<DomainPostsItem> = withContext(Dispatchers.IO) {
         postsDao.getIsFavorite(id).map {
+            it.toDomainPosts()
+        }
+    }
+
+    override suspend fun getIsFavorite(isFavorite: Boolean): List<DomainPostsItem> = withContext(Dispatchers.IO) {
+        postsDao.getFavorite(isFavorite).map {
             it.toDomainPosts()
         }
     }

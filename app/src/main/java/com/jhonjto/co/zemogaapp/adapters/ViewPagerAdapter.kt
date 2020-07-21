@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.jhonjto.co.zemogaapp.ui.posts.LoadPosts
-import com.jhonjto.co.zemogaapp.ui.comments.ShowFavorites
+import com.jhonjto.co.zemogaapp.ui.favorites.ShowFavorites
 
 /**
  * Created by jhon on 18/07/2020

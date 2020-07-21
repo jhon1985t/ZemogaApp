@@ -16,7 +16,7 @@ interface PostsDao {
     suspend fun updatePosts(dataBasePostsItem: List<DataBasePostsItem>)
 
     @Query("SELECT * FROM DataBasePostsItem")
-    fun getAll() : List<DataBasePostsItem>
+    suspend fun getAll() : List<DataBasePostsItem>
 
     @Query("DELETE FROM DataBasePostsItem")
     suspend fun deleteAll()
@@ -38,4 +38,7 @@ interface PostsDao {
 
     @Query("SELECT * FROM DataBasePostsItem WHERE id = :id")
     suspend fun getIsFavorite(id: Int) : List<DataBasePostsItem>
+
+    @Query("SELECT * FROM DataBasePostsItem WHERE isFavorite = :isFavorite")
+    suspend fun getFavorite(isFavorite: Boolean = true) : List<DataBasePostsItem>
 }

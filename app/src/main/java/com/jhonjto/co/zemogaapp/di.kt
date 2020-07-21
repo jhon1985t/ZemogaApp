@@ -12,8 +12,8 @@ import com.jhonjto.co.zemogaapp.data.database.AppDatabase
 import com.jhonjto.co.zemogaapp.data.server.TheJsonDb
 import com.jhonjto.co.zemogaapp.data.source.RetrofitDataSource
 import com.jhonjto.co.zemogaapp.data.source.RoomDataSource
-import com.jhonjto.co.zemogaapp.ui.comments.ShowFavorites
-import com.jhonjto.co.zemogaapp.ui.comments.ShowFavoritesViewModel
+import com.jhonjto.co.zemogaapp.ui.favorites.ShowFavorites
+import com.jhonjto.co.zemogaapp.ui.favorites.ShowFavoritesViewModel
 import com.jhonjto.co.zemogaapp.ui.detail.DetailActivity
 import com.jhonjto.co.zemogaapp.ui.detail.DetailViewModel
 import com.jhonjto.co.zemogaapp.ui.main.MainActivity
@@ -55,13 +55,14 @@ val dataModule = module {
 
 private val scopesModule = module {
     scope(named<MainActivity>()) {
-        viewModel { MainViewModel(get()) }
+        viewModel { MainViewModel(get(), get()) }
         scoped { GetAllPosts(get()) }
     }
 
     scope(named<DetailActivity>()) {
         viewModel { (postId: Int) ->
             DetailViewModel(
+                uiDispatcher = get(),
                 postId = postId,
                 updatePostFavoriteFromDb = get(),
                 getPostFindByIdFromDb = get(),
@@ -76,13 +77,14 @@ private val scopesModule = module {
     }
 
     scope(named<LoadPosts>()) {
-        viewModel { LoadPostsViewModel(get(), get()) }
+        viewModel { LoadPostsViewModel(get(), get(), get(), get()) }
         scoped { GetAllPostsFromDb(get()) }
         scoped { UpDatePostFromDb(get()) }
-        scoped { GetPostIsReadedFromDb(get()) }
+        scoped { DeleteAllPostsFromDb(get()) }
     }
 
     scope(named<ShowFavorites>()) {
-        viewModel { ShowFavoritesViewModel() }
+        viewModel { ShowFavoritesViewModel(get(), get()) }
+        scoped { GetIsFavoriteFromDb(get()) }
     }
 }

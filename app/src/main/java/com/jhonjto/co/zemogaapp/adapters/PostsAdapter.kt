@@ -42,7 +42,6 @@ class PostsAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(domainPostsItem: DomainPostsItem) = with(itemView) {
-            if (domainPostsItem.isFavorite) imPostsFav.visibility = View.VISIBLE
             when (domainPostsItem.id <= 20) {
                 true -> {
                     imPostsDot.visibility = View.VISIBLE
@@ -50,10 +49,20 @@ class PostsAdapter(
                     if (domainPostsItem.isReaded) {
                         imPostsDot.visibility = View.INVISIBLE
                     }
+                    if (domainPostsItem.isFavorite){
+                        imPostsFav.visibility = View.VISIBLE
+                    } else {
+                        imPostsFav.visibility = View.INVISIBLE
+                    }
                 }
                 false -> {
                     imPostsDot.visibility = View.INVISIBLE
                     tvPostsBody.text = domainPostsItem.body
+                    if (domainPostsItem.isFavorite){
+                        imPostsFav.visibility = View.VISIBLE
+                    } else {
+                        imPostsFav.visibility = View.INVISIBLE
+                    }
                 }
             }
         }

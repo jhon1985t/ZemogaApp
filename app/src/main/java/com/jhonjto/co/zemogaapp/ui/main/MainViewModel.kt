@@ -5,14 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import com.jhonjto.co.domain.DomainPostsItem
 import com.jhonjto.co.usecases.GetAllPosts
 import com.jhonjto.co.zemogaapp.common.ScopeViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 /**
  * Created by jhon on 18/07/2020
  */
 class MainViewModel(
+    uiDispatcher: CoroutineDispatcher,
     private val getAllPosts: GetAllPosts
-) : ScopeViewModel() {
+) : ScopeViewModel(uiDispatcher) {
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>

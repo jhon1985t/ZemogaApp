@@ -8,6 +8,7 @@ import com.jhonjto.co.domain.DomainPostsItem
 interface DataBaseDataSource {
 
     suspend fun getAllPosts() : List<DomainPostsItem>
+    suspend fun deleteAllPosts()
     suspend fun savePosts(domainPostsItem: List<DomainPostsItem>)
     suspend fun updatePosts(domainPostsItem: List<DomainPostsItem>)
     suspend fun updatePostReaded(id: Int, isReaded: Boolean) : Int
@@ -15,5 +16,6 @@ interface DataBaseDataSource {
     suspend fun findById(id: Int) : DomainPostsItem
     suspend fun updatePostFavorite(id: Int, isFavorite: Boolean) : Int
     suspend fun getPostFavorite(id: Int) : List<DomainPostsItem>
+    suspend fun getIsFavorite(isFavorite: Boolean) : List<DomainPostsItem>
     suspend fun isEmpty(): Boolean
 }

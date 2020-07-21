@@ -11,18 +11,20 @@ import com.jhonjto.co.usecases.GetUserComments
 import com.jhonjto.co.usecases.GetUserDetails
 import com.jhonjto.co.usecases.UpdatePostFavoriteFromDb
 import com.jhonjto.co.zemogaapp.common.ScopeViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 /**
  * Created by jhon on 20/07/2020
  */
 class DetailViewModel(
+    uiDispatcher: CoroutineDispatcher,
     private val postId: Int,
     private val updatePostFavoriteFromDb: UpdatePostFavoriteFromDb,
     private val getPostFindByIdFromDb: GetPostFindByIdFromDb,
     private val getUserDetails: GetUserDetails,
     private val getUserComments: GetUserComments
-) : ScopeViewModel() {
+) : ScopeViewModel(uiDispatcher) {
 
     sealed class UiModel {
         object Loading : UiModel()
